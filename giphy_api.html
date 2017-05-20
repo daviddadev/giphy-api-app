@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Animal Buttons</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+<div id="btn-div">
+<!--    button galore here-->
+<button class="btn btn-info" data-animal="cat">Cat</button>
+<button class="btn btn-info" data-animal="dog">Dog</button>
+<button class="btn btn-info" data-animal="bird">Bird</button>
+<button class="btn btn-info" data-animal="horse">Horse</button>
+<button class="btn btn-info" data-animal="frog">Frog</button>
+<button class="btn btn-info" data-animal="reptile">Reptile</button>
+<button class="btn btn-info" data-animal="fish">Fish</button>
+<button class="btn btn-info" data-animal="mammal">Mammal</button>
+<button class="btn btn-info" data-animal="insect">Insect</button>
+<button class="btn btn-info" data-animal="cat">Puppies</button>
+<button class="btn btn-info" data-animal="Kittens">Kittens</button>
+<button class="btn btn-info" data-animal="worms">Worms</button>
+<button class="btn btn-info" data-animal="sealion">Sealion</button>
+<button class="btn btn-info" data-animal="zoo">Zoo</button>
+<button class="btn btn-info" data-animal="pony">Pony</button>
+<button class="btn btn-info" data-animal="unicorn">Unicorn</button>
+<button class="btn btn-info" data-animal="fox">Fox</button>
+</div>
+   
+<!--    form--> 
+<form>
+      <span id="todo-item">Add gif to list: <input id="to-list" type="text" ><input id="add-to-list" value="Add Gif" type="submit"></span>
+</form>
+<!-- form   -->
+    
+    
+    
+  <div id="gifs-appear-here">
+  </div>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script type="text/javascript">
+  
+    $("button").on("click", function() {
+      var animal = $(this).attr("data-animal");
+      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+        animal + "&api_key=dc6zaTOxFJmzC&limit=10";
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+        .done(function(response) {
+          console.log(queryURL);
+          console.log(response);
+          var results = response.data;
+          for (var i = 0; i < results.length; i++) {
+            var animalDiv = $("<div>");
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            var animalImage = $("<img>");
+           
+            animalImage.attr("src", results[i].images.fixed_height.url);
+
+            // Append
+            animalDiv.append(p);
+            animalDiv.append(animalImage);
+
+            // add to html here:
+            $("#gifs-appear-here").prepend(animalDiv);
+          }
+        });
+    });
+      
+//-----------------------------------------------------
+
+      
+      
+      
+  </script>
+</body>
+
+</html>
